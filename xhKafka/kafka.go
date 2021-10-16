@@ -7,7 +7,7 @@ import (
 
 type KafkaHeaders []kafka.Header
 
-func (i *KafkaHeaders) toKafkaHeaders() []kafka.Header {
+func (i *KafkaHeaders) ToKafkaHeaders() []kafka.Header {
 	return *i
 }
 
