@@ -65,9 +65,10 @@ func (wildcard KafkaWildcard) BindRawWildcard(reader kafka.Reader) (chan kafka.M
 	wildcard.BindWildcard(reader, matchChan, errChan)
 	return matchChan, errChan
 }
-func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan kafka.Message, errChan chan error) {
+func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan kafka.Message, errChan chan error)  (chan kafka.Message, chan error){
 	go func() {
 		reader.SetOffsetAt(context.Background(), time.Now())
+		defer reader.Close()
 		for {
 			if m, err := reader.ReadMessage(context.Background()); err != nil {
 				errChan <- err
@@ -79,4 +80,5 @@ func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan k
 			}
 		}
 	}()
+	return matchChan, errChan
 }
