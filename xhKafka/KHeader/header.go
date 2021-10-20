@@ -1,11 +1,18 @@
-package header
+package KHeader
+
 import (
 	"github.com/segmentio/kafka-go"
 	"strings"
+	"time"
 )
 
 type KafkaHeaders []kafka.Header
 
+func BasicHeader() KafkaHeaders{
+	var header = FromKafkaHeader([]kafka.Header{})
+	header = header.Add("Date", time.Now().String())
+	return header
+}
 func FromKafkaHeader(headers []kafka.Header) KafkaHeaders {
 	return headers
 }
@@ -19,8 +26,8 @@ func (i *KafkaHeaders) Find1(name string) string {
 	return ""
 }
 
-func (i *KafkaHeaders) Find2(name1,name2 string) (string,string) {
-	var v1,v2 string
+func (i *KafkaHeaders) Find2(name1, name2 string) (string, string) {
+	var v1, v2 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -28,15 +35,15 @@ func (i *KafkaHeaders) Find2(name1,name2 string) (string,string) {
 		if item.Key == name2 {
 			v2 = string(item.Value)
 		}
-		if v1 != "" && v2 != ""{
-			return v1,v2
+		if v1 != "" && v2 != "" {
+			return v1, v2
 		}
 	}
-	return v1,v2
+	return v1, v2
 }
 
-func (i *KafkaHeaders) Find3(name1,name2,name3 string) (string,string,string) {
-	var v1,v2,v3 string
+func (i *KafkaHeaders) Find3(name1, name2, name3 string) (string, string, string) {
+	var v1, v2, v3 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -47,15 +54,15 @@ func (i *KafkaHeaders) Find3(name1,name2,name3 string) (string,string,string) {
 		if item.Key == name3 {
 			v3 = string(item.Value)
 		}
-		if v1 != "" && v2 != "" && v3 != ""{
-			return v1,v2,v3
+		if v1 != "" && v2 != "" && v3 != "" {
+			return v1, v2, v3
 		}
 	}
-	return v1,v2,v3
+	return v1, v2, v3
 }
 
-func (i *KafkaHeaders) Find4(name1,name2,name3,name4 string) (string,string,string,string) {
-	var v1,v2,v3,v4 string
+func (i *KafkaHeaders) Find4(name1, name2, name3, name4 string) (string, string, string, string) {
+	var v1, v2, v3, v4 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -69,15 +76,15 @@ func (i *KafkaHeaders) Find4(name1,name2,name3,name4 string) (string,string,stri
 		if item.Key == name4 {
 			v4 = string(item.Value)
 		}
-		if v1 != "" && v2 != "" && v3 != "" && v4 != ""{
-			return v1,v2,v3,v4
+		if v1 != "" && v2 != "" && v3 != "" && v4 != "" {
+			return v1, v2, v3, v4
 		}
 	}
-	return v1,v2,v3,v4
+	return v1, v2, v3, v4
 }
 
-func (i *KafkaHeaders) Find5(name1,name2,name3,name4,name5 string) (string,string,string,string,string) {
-	var v1,v2,v3,v4,v5 string
+func (i *KafkaHeaders) Find5(name1, name2, name3, name4, name5 string) (string, string, string, string, string) {
+	var v1, v2, v3, v4, v5 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -94,15 +101,15 @@ func (i *KafkaHeaders) Find5(name1,name2,name3,name4,name5 string) (string,strin
 		if item.Key == name5 {
 			v5 = string(item.Value)
 		}
-		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != ""{
-			return v1,v2,v3,v4,v5
+		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != "" {
+			return v1, v2, v3, v4, v5
 		}
 	}
-	return v1,v2,v3,v4,v5
+	return v1, v2, v3, v4, v5
 }
 
-func (i *KafkaHeaders) Find6(name1,name2,name3,name4,name5,name6 string) (string,string,string,string,string,string) {
-	var v1,v2,v3,v4,v5,v6 string
+func (i *KafkaHeaders) Find6(name1, name2, name3, name4, name5, name6 string) (string, string, string, string, string, string) {
+	var v1, v2, v3, v4, v5, v6 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -122,15 +129,15 @@ func (i *KafkaHeaders) Find6(name1,name2,name3,name4,name5,name6 string) (string
 		if item.Key == name6 {
 			v6 = string(item.Value)
 		}
-		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != "" && v6 != ""{
-			return v1,v2,v3,v4,v5,v6
+		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != "" && v6 != "" {
+			return v1, v2, v3, v4, v5, v6
 		}
 	}
-	return v1,v2,v3,v4,v5,v6
+	return v1, v2, v3, v4, v5, v6
 }
 
-func (i *KafkaHeaders) Find7(name1,name2,name3,name4,name5,name6,name7 string) (string, string,string,string,string,string,string) {
-	var v1,v2,v3,v4,v5,v6,v7 string
+func (i *KafkaHeaders) Find7(name1, name2, name3, name4, name5, name6, name7 string) (string, string, string, string, string, string, string) {
+	var v1, v2, v3, v4, v5, v6, v7 string
 	for _, item := range i.ToKafkaHeaders() {
 		if item.Key == name1 {
 			v1 = string(item.Value)
@@ -153,11 +160,11 @@ func (i *KafkaHeaders) Find7(name1,name2,name3,name4,name5,name6,name7 string) (
 		if item.Key == name7 {
 			v7 = string(item.Value)
 		}
-		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != "" && v6 != "" && v7 != ""{
-			return v1,v2,v3,v4,v5,v6,v7
+		if v1 != "" && v2 != "" && v3 != "" && v4 != "" && v5 != "" && v6 != "" && v7 != "" {
+			return v1, v2, v3, v4, v5, v6, v7
 		}
 	}
-	return v1,v2,v3,v4,v5,v6,v7
+	return v1, v2, v3, v4, v5, v6, v7
 }
 
 func (i *KafkaHeaders) ToKafkaHeaders() []kafka.Header {
@@ -180,12 +187,12 @@ func (i *KafkaHeaders) String() string {
 	}
 }
 
-func (i *KafkaHeaders) Add(key,value string) KafkaHeaders {
-	t:= FromKafkaHeader(append(*i, kafka.Header{
-		Key: key,
+func (i *KafkaHeaders) Add(key, value string) KafkaHeaders {
+	t := FromKafkaHeader(append(*i, kafka.Header{
+		Key:   key,
 		Value: []byte(value),
 	}))
-	return t;
+	return t
 }
 
 func (i *KafkaHeaders) Set(value string) error {

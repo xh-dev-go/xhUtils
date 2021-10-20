@@ -1,9 +1,9 @@
-package wildcard
+package KWildcard
 
 import (
 	"context"
 	"github.com/segmentio/kafka-go"
-	"github.com/xh-dev-go/xhUtils/xhKafka/channel"
+	"io"
 	"strings"
 	"time"
 )
@@ -24,6 +24,12 @@ func (wildcard KafkaWildcard) Last() string {
 	return wildcard.levels[wildcard.Len()-1]
 }
 
+func getMessageChan() chan kafka.Message{
+	return make(chan kafka.Message)
+}
+func getErrChan() chan error{
+	return make(chan error)
+}
 func (wildcard KafkaWildcard) Match(key string) bool {
 	splintedKey := strings.Split(strings.Trim(key, "/"), "/")
 	keyLen := len(splintedKey)
@@ -60,8 +66,8 @@ func (wildcard KafkaWildcard) Match(key string) bool {
 
 }
 func (wildcard KafkaWildcard) BindRawWildcard(reader kafka.Reader) (chan kafka.Message, chan error) {
-	matchChan := channel.GetMessageChan()
-	errChan := channel.GetErrChan()
+	matchChan := getMessageChan()
+	errChan := getErrChan()
 	wildcard.BindWildcard(reader, matchChan, errChan)
 	return matchChan, errChan
 }
@@ -71,8 +77,13 @@ func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan k
 		defer reader.Close()
 		for {
 			if m, err := reader.ReadMessage(context.Background()); err != nil {
-				errChan <- err
-				continue
+				if err == io.EOF {
+					println("Closed")
+					break
+				} else {
+					errChan <- err
+					continue
+				}
 			} else {
 				if wildcard.Match(string(m.Key)) {
 					matchChan <- m

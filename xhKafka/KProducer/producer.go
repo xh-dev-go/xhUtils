@@ -1,9 +1,9 @@
-package producer
+package KProducer
 
 import (
 	"context"
 	"github.com/segmentio/kafka-go"
-	"github.com/xh-dev-go/xhUtils/xhKafka/header"
+	"github.com/xh-dev-go/xhUtils/xhKafka/KHeader"
 )
 
 type XhKafkaProducer struct {
@@ -33,7 +33,7 @@ func (xhKafkaProducer *XhKafkaProducer) SimpleSend(msg kafka.Message) error {
 		msg,
 	)
 }
-func (xhKafkaProducer *XhKafkaProducer) Message(msg string, headers header.KafkaHeaders) kafka.Message {
+func (xhKafkaProducer *XhKafkaProducer) Message(msg string, headers KHeader.KafkaHeaders) kafka.Message {
 	return kafka.Message{
 		Key: []byte(xhKafkaProducer.Key),
 		Topic: xhKafkaProducer.Topic,
