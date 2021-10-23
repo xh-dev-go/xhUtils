@@ -1,9 +1,9 @@
 package pathConfig
 
 import (
+	"github.com/xh-dev-go/xhUtils/osDetection"
 	"log"
 	"os"
-	"github.com/xh-dev-go/xhUtils/osDetection"
 )
 
 func Info(){
@@ -42,11 +42,11 @@ var CacheDir = GetCache()
 var HomeDir = GetHome()
 
 
-func getSysSeparator() rune {
+func getSysSeparator() string {
 	if osDetection.CurOS == osDetection.OS_WIN{
-		return '\\'
+		return "\\"
 	} else {
-		return '/'
+		return "/"
 	}
 }
 var SysSeparator = getSysSeparator()

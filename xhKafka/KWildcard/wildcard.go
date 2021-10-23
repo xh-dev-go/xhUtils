@@ -5,7 +5,6 @@ import (
 	"github.com/segmentio/kafka-go"
 	"io"
 	"strings"
-	"time"
 )
 
 type KafkaWildcard struct {
@@ -65,16 +64,18 @@ func (wildcard KafkaWildcard) Match(key string) bool {
 	}
 
 }
-func (wildcard KafkaWildcard) BindRawWildcard(reader kafka.Reader) (chan kafka.Message, chan error) {
-	matchChan := getMessageChan()
-	errChan := getErrChan()
-	wildcard.BindWildcard(reader, matchChan, errChan)
-	return matchChan, errChan
-}
-func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan kafka.Message, errChan chan error)  (chan kafka.Message, chan error){
+func (wildcard KafkaWildcard) BindWildcard(reader *kafka.Reader, matchChan chan kafka.Message, errChan chan error, extraSettings func (reader2 *kafka.Reader) error )  (chan kafka.Message, chan error, error){
+	err := extraSettings(reader)
+	if err != nil {
+		return nil, nil, err
+	}
 	go func() {
-		reader.SetOffsetAt(context.Background(), time.Now())
-		defer reader.Close()
+		defer func(reader *kafka.Reader) {
+			err := reader.Close()
+			if err != nil {
+
+			}
+		}(reader)
 		for {
 			if m, err := reader.ReadMessage(context.Background()); err != nil {
 				if err == io.EOF {
@@ -91,5 +92,5 @@ func (wildcard KafkaWildcard) BindWildcard(reader kafka.Reader, matchChan chan k
 			}
 		}
 	}()
-	return matchChan, errChan
+	return matchChan, errChan, nil
 }
