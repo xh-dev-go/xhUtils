@@ -30,7 +30,7 @@ func Read() (string, error) {
 	return input, nil
 }
 
-func ShowMsgAndReadDirect(msg string) string {
+func ShowMsgAndReadDirectly(msg string) string {
 	m, err := ShowMsgAndRead(msg)
 	if err != nil {
 		panic(err)
@@ -43,8 +43,8 @@ func ShowMsgAndRead(msg string) (string, error) {
 	return Read()
 }
 
-func WaitForPressAnykey(msg string){
+func WaitForPressAnyKey(msg string) (int, error) {
 	fmt.Println(msg)
-	fmt.Scanln() // wait for Enter Key
+	return fmt.Scanln() // wait for Enter Key
 }
 
