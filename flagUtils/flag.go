@@ -7,6 +7,6 @@ import (
 )
 var CommandFlag = flag.CommandLine
 
-func version(fs embed.FS) *flagBool.BoolParam {
+func Version(fs embed.FS) *flagBool.BoolParam {
 	return flagBool.New("version", "application version")
 }
