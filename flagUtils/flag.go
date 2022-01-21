@@ -1,12 +1,14 @@
 package flagUtils
 
 import (
-	"embed"
+	_ "embed"
 	"flag"
-	"github.com/xh-dev-go/xhUtils/flagUtils/flagBool"
+	"github.com/xh-dev-go/xhUtils/flagUtils/flagString"
 )
 var CommandFlag = flag.CommandLine
 
-func Version(fs embed.FS) *flagBool.BoolParam {
-	return flagBool.New("version", "application version")
+//go:embed version
+var version string
+func Version() *flagString.StringParam {
+	return flagString.New("version", "application version").SetValue(&version)
 }
