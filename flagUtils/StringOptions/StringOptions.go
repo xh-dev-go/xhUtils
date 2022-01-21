@@ -4,18 +4,19 @@ import (
 	"errors"
 	"flag"
 	"github.com/xh-dev-go/xhUtils/common"
-	"github.com/xh-dev-go/xhUtils/flagUtils/flagString"
+	"github.com/xh-dev-go/xhUtils/flagUtils"
+	"github.com/xh-dev-go/xhUtils/flagUtils/flagBool"
 	"github.com/xh-dev-go/xhUtils/logical"
 )
 
-type FlagOptionStringCmd struct {
-	list *[]flagString.StringParam
+type FlagOptionBoolCmd struct {
+	list *[]flagBool.BoolParam
 }
-type FlagOptionString struct {
+type FlagOptionBool struct {
 	list *[]common.StringTuple
 }
 
-func (option *FlagOptionString) Add(key, value string) *FlagOptionString {
+func (option *FlagOptionBool) Add(key, value string) *FlagOptionBool {
 
 	op := common.StringTuple{
 		Key: key, Value: value,
@@ -28,23 +29,26 @@ func (option *FlagOptionString) Add(key, value string) *FlagOptionString {
 	return option
 }
 
-func (option *FlagOptionString) Bind(flag *flag.FlagSet) *FlagOptionStringCmd {
-	var list []flagString.StringParam
+func (option *FlagOptionBool) BindCmd() *FlagOptionBoolCmd {
+	return option.Bind(flagUtils.CommandFlag)
+}
+
+func (option *FlagOptionBool) Bind(flag *flag.FlagSet) *FlagOptionBoolCmd {
+	var list []flagBool.BoolParam
 	for _, item := range *option.list {
-		list = append(list, *flagString.New(item.Key, item.Value).Bind(flag))
+		list = append(list, *flagBool.New(item.Key, item.Value).Bind(flag))
 	}
-	return &FlagOptionStringCmd{list: &list}
+	return &FlagOptionBoolCmd{list: &list}
 }
 
 var ExDuplicateSelection = errors.New("Duplicate selection")
 var ExEmptySelection = errors.New("No selection")
-func (option *FlagOptionStringCmd) Value() (string,error) {
-	var err error
+func (option *FlagOptionBoolCmd) Value() (string,error) {
 	var result string
 	var bs []bool
 	var ti = -1
 	for i, item := range *option.list{
-		t := "" != item.Value()
+		t := item.Value()
 		if t {
 			if ti == -1 {
 				ti = i
@@ -61,10 +65,10 @@ func (option *FlagOptionStringCmd) Value() (string,error) {
 		return result, ExEmptySelection
 	} else {
 		l := *option.list
-		return (l[ti]).Value(), nil
+		return (l[ti]).Name(), nil
 	}
 }
 
-func New() *FlagOptionString {
-	return &FlagOptionString{}
+func New() *FlagOptionBool {
+	return &FlagOptionBool{}
 }

@@ -12,6 +12,9 @@ type BoolParam struct {
 	usage string
 }
 
+func (param *BoolParam) Name() string {
+	return param.name
+}
 func (param *BoolParam) SetValue(value *bool) *BoolParam{
 	param.value = value
 	return param

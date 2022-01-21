@@ -11,6 +11,9 @@ type StringParam struct {
 	defaultValue string
 	usage string
 }
+func (param *StringParam) Name() string {
+	return param.name
+}
 
 func (param *StringParam) IsEmpty() bool {
 	return *param.value == ""

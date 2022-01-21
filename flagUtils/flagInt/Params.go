@@ -12,6 +12,9 @@ type IntParam struct {
 	usage string
 }
 
+func (param *IntParam) Name() string {
+	return param.name
+}
 func (param *IntParam) SetValue(value *int) *IntParam{
 	param.value = value
 	return param

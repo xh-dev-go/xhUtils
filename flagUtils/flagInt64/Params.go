@@ -13,6 +13,9 @@ type Int64Param struct {
 }
 
 
+func (param *Int64Param) Name() string {
+	return param.name
+}
 func (param *Int64Param) SetValue(value *int64) *Int64Param{
 	param.value = value
 	return param
