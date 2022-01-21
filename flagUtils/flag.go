@@ -7,8 +7,6 @@ import (
 )
 var CommandFlag = flag.CommandLine
 
-//go:embed version
-var version string
-func Version() *flagString.StringParam {
-	return flagString.New("version", "application version").SetValue(&version)
+func Version(version *string) *flagString.StringParam {
+	return flagString.New("version", "application version").SetValue(version)
 }
