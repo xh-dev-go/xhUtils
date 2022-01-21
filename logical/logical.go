@@ -1,6 +1,6 @@
 package logical
 
-func exclusiveOr(a,b bool) bool{
+func ExclusiveOr(a,b bool) bool{
 	return ( a || b) && !(a && b)
 }
 
@@ -21,7 +21,7 @@ func OnlyOneOf(list... bool) bool{
 	}
 }
 
-func allOf(list... bool) bool{
+func AllOf(list... bool) bool{
 	for _,b := range list {
 		if !b {
 			return false
