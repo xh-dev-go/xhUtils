@@ -1,4 +1,4 @@
-package FlagString
+package flagString
 
 import (
 	"flag"
@@ -13,6 +13,11 @@ type StringParam struct {
 
 func (param *StringParam) IsEmpty() bool {
 	return *param.value == ""
+}
+
+func (param *StringParam) SetValue(value *string) *StringParam{
+	param.value = value
+	return param
 }
 
 func (param *StringParam) Value() string{

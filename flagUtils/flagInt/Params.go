@@ -1,4 +1,4 @@
-package FlagInt
+package flagInt
 
 import (
 	"flag"
@@ -9,6 +9,11 @@ type IntParam struct {
 	name string
 	defaultValue int
 	usage string
+}
+
+func (param *IntParam) SetValue(value *int) *IntParam{
+	param.value = value
+	return param
 }
 
 func (param *IntParam) Value() int{

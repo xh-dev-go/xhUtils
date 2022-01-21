@@ -1,4 +1,4 @@
-package FlagBool
+package flagBool
 
 import (
 	"flag"
@@ -9,6 +9,11 @@ type BoolParam struct {
 	name string
 	defaultValue bool
 	usage string
+}
+
+func (param *BoolParam) SetValue(value *bool) *BoolParam{
+	param.value = value
+	return param
 }
 
 func (param *BoolParam) Value() bool{
