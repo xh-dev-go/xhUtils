@@ -1,4 +1,4 @@
-package FlagString
+package FlagInt
 
 import (
 	"flag"
