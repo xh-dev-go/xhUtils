@@ -2,6 +2,7 @@ package KProducer
 
 import (
 	"context"
+	"fmt"
 	"github.com/segmentio/kafka-go"
 	"github.com/xh-dev-go/xhUtils/xhKafka/KHeader"
 )
@@ -28,6 +29,7 @@ func (xhKafkaProducer *XhKafkaProducer) ToWriter() *kafka.Writer  {
 	return xhKafkaProducer.writer
 }
 func (xhKafkaProducer *XhKafkaProducer) SimpleSend(msg kafka.Message) error {
+	println(fmt.Sprintf("%s: %s", string(msg.Key),msg.Value))
 	return xhKafkaProducer.ToWriter().WriteMessages(
 		context.Background(),
 		msg,
@@ -39,12 +41,5 @@ func (xhKafkaProducer *XhKafkaProducer) Message(msg string, headers KHeader.Kafk
 		Topic: xhKafkaProducer.Topic,
 		Value: []byte(msg),
 		Headers: headers,
-	}
-}
-func (xhKafkaProducer *XhKafkaProducer) SimpleMessage(msg string) kafka.Message {
-	return kafka.Message{
-		Key: []byte(xhKafkaProducer.Key),
-		Topic: xhKafkaProducer.Topic,
-		Value: []byte(msg),
 	}
 }

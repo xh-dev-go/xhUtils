@@ -10,7 +10,7 @@ type KafkaHeaders []kafka.Header
 
 func BasicHeader() KafkaHeaders{
 	var header = FromKafkaHeader([]kafka.Header{})
-	header = header.Add("Date", time.Now().String())
+	header = header.Add("Date", time.Now().Format(time.RFC3339))
 	return header
 }
 func FromKafkaHeader(headers []kafka.Header) KafkaHeaders {

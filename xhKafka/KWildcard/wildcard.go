@@ -3,6 +3,7 @@ package KWildcard
 import (
 	"context"
 	"github.com/segmentio/kafka-go"
+	"github.com/xh-dev-go/xhUtils/flagUtils"
 	"io"
 	"strings"
 )
@@ -93,4 +94,52 @@ func (wildcard KafkaWildcard) BindWildcard(reader *kafka.Reader, matchChan chan 
 		}
 	}()
 	return matchChan, errChan, nil
+}
+
+func (wildcard KafkaWildcard) ReverseKey1(key string, index int) (bool, string){
+	if wildcard.Match(key) {
+		key := strings.Split(strings.Trim(key, "/"), "/")
+		if len(key) <= index {
+			return false, flagUtils.StrEmpty
+		}
+		return true, key[index]
+	} else {
+		return false, flagUtils.StrEmpty
+	}
+}
+
+func (wildcard KafkaWildcard) ReverseKey2(key string, index1, index2 int) (bool, string, string){
+	if wildcard.Match(key) {
+		key := strings.Split(strings.Trim(key, "/"), "/")
+		if l:=len(key); l <= index1 || l <= index2 {
+			return false, flagUtils.StrEmpty, flagUtils.StrEmpty
+		}
+		return true, key[index1], key[index2]
+	} else {
+		return false, flagUtils.StrEmpty, flagUtils.StrEmpty
+	}
+}
+
+func (wildcard KafkaWildcard) ReverseKey3(key string, index1, index2, index3 int) (bool, string, string, string){
+	if wildcard.Match(key) {
+		key := strings.Split(strings.Trim(key, "/"), "/")
+		if l:=len(key); l <= index1 || l <= index2 || l <= index3{
+			return false, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty
+		}
+		return true, key[index1], key[index2], key[index3]
+	} else {
+		return false, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty
+	}
+}
+
+func (wildcard KafkaWildcard) ReverseKey4(key string, index1, index2, index3, index4 int) (bool, string, string, string, string){
+	if wildcard.Match(key) {
+		key := strings.Split(strings.Trim(key, "/"), "/")
+		if l:=len(key); l <= index1 || l <= index2 || l <= index3 || l <= index4{
+			return false, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty
+		}
+		return true, key[index1], key[index2], key[index3], key[index4]
+	} else {
+		return false, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty, flagUtils.StrEmpty
+	}
 }
