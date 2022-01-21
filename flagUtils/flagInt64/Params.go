@@ -2,6 +2,7 @@ package FlagString
 
 import (
 	"flag"
+	"github.com/xh-dev-go/xhUtils/flagUtils"
 )
 
 type Int64Param struct {
@@ -23,6 +24,10 @@ func (param *Int64Param) Value() int64{
 
 func (param *Int64Param) Bind(flag *flag.FlagSet) *Int64Param {
 	flag.Int64Var(param.value, param.name, param.defaultValue, param.usage)
+	return param
+}
+func (param *Int64Param) BindCmd() *Int64Param {
+	flagUtils.CommandFlag.Int64Var(param.value, param.name, param.defaultValue, param.usage)
 	return param
 }
 

@@ -2,6 +2,7 @@ package flagString
 
 import (
 	"flag"
+	"github.com/xh-dev-go/xhUtils/flagUtils"
 )
 
 type StringParam struct {
@@ -22,6 +23,10 @@ func (param *StringParam) SetValue(value *string) *StringParam{
 
 func (param *StringParam) Value() string{
 	return *param.value
+}
+func (param *StringParam) BindCmd() *StringParam {
+	flagUtils.CommandFlag.StringVar(param.value, param.name, param.defaultValue, param.usage)
+	return param
 }
 
 func (param *StringParam) Bind(flag *flag.FlagSet) *StringParam {
