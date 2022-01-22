@@ -2,7 +2,7 @@ package flagBool
 
 import (
 	"flag"
-	"github.com/xh-dev-go/xhUtils/flagUtils"
+	"github.com/xh-dev-go/xhUtils/flagUtils/FlagSets"
 )
 
 type BoolParam struct {
@@ -29,8 +29,7 @@ func (param *BoolParam) Bind(flag *flag.FlagSet) *BoolParam {
 	return param
 }
 func (param *BoolParam) BindCmd() *BoolParam {
-	flagUtils.CommandFlag.BoolVar(param.value, param.name, param.defaultValue, param.usage)
-	return param
+	return param.Bind(FlagSets.CommandFlag)
 }
 
 func New(name, usage string) *BoolParam {

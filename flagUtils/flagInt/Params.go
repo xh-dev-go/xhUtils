@@ -2,7 +2,7 @@ package flagInt
 
 import (
 	"flag"
-	"github.com/xh-dev-go/xhUtils/flagUtils"
+	"github.com/xh-dev-go/xhUtils/flagUtils/FlagSets"
 )
 
 type IntParam struct {
@@ -29,8 +29,7 @@ func (param *IntParam) Bind(flag *flag.FlagSet) *IntParam {
 	return param
 }
 func (param *IntParam) BindCmd() *IntParam {
-	flagUtils.CommandFlag.IntVar(param.value, param.name, param.defaultValue, param.usage)
-	return param
+	return param.Bind(FlagSets.CommandFlag)
 }
 
 func New(name, usage string) *IntParam {

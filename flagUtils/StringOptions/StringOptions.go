@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"github.com/xh-dev-go/xhUtils/common"
-	"github.com/xh-dev-go/xhUtils/flagUtils"
+	"github.com/xh-dev-go/xhUtils/flagUtils/FlagSets"
 	"github.com/xh-dev-go/xhUtils/flagUtils/flagBool"
 	"github.com/xh-dev-go/xhUtils/logical"
 )
@@ -30,7 +30,7 @@ func (option *FlagOptionBool) Add(key, value string) *FlagOptionBool {
 }
 
 func (option *FlagOptionBool) BindCmd() *FlagOptionBoolCmd {
-	return option.Bind(flagUtils.CommandFlag)
+	return option.Bind(FlagSets.CommandFlag)
 }
 
 func (option *FlagOptionBool) Bind(flag *flag.FlagSet) *FlagOptionBoolCmd {
