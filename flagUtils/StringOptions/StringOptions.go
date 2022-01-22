@@ -21,8 +21,10 @@ func (option *FlagOptionBool) Add(key, value string) *FlagOptionBool {
 	op := common.StringTuple{
 		Key: key, Value: value,
 	}
+
+	l := *option.list
 	newList := append(
-		*option.list,
+		l,
 		op,
 	)
 	option.list = &newList
