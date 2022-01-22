@@ -10,10 +10,10 @@ import (
 )
 
 type FlagOptionBoolCmd struct {
-	list *[]flagBool.BoolParam
+	list []flagBool.BoolParam
 }
 type FlagOptionBool struct {
-	list *[]common.StringTuple
+	list []common.StringTuple
 }
 
 func (option *FlagOptionBool) Add(key, value string) *FlagOptionBool {
@@ -22,12 +22,12 @@ func (option *FlagOptionBool) Add(key, value string) *FlagOptionBool {
 		Key: key, Value: value,
 	}
 
-	l := *option.list
+	l := option.list
 	newList := append(
 		l,
 		op,
 	)
-	option.list = &newList
+	option.list = newList
 	return option
 }
 
@@ -37,10 +37,10 @@ func (option *FlagOptionBool) BindCmd() *FlagOptionBoolCmd {
 
 func (option *FlagOptionBool) Bind(flag *flag.FlagSet) *FlagOptionBoolCmd {
 	var list []flagBool.BoolParam
-	for _, item := range *option.list {
+	for _, item := range option.list {
 		list = append(list, *flagBool.New(item.Key, item.Value).Bind(flag))
 	}
-	return &FlagOptionBoolCmd{list: &list}
+	return &FlagOptionBoolCmd{list: list}
 }
 
 var ExDuplicateSelection = errors.New("Duplicate selection")
@@ -49,7 +49,7 @@ func (option *FlagOptionBoolCmd) Value() (string,error) {
 	var result string
 	var bs []bool
 	var ti = -1
-	for i, item := range *option.list{
+	for i, item := range option.list{
 		t := item.Value()
 		if t {
 			if ti == -1 {
@@ -66,7 +66,7 @@ func (option *FlagOptionBoolCmd) Value() (string,error) {
 	if ti == -1 {
 		return result, ExEmptySelection
 	} else {
-		l := *option.list
+		l := option.list
 		return (l[ti]).Name(), nil
 	}
 }
