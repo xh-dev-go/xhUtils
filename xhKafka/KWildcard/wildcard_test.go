@@ -23,33 +23,33 @@ func TestKafkaWildcard1(t *testing.T) {
 
 func TestKafkaWildcard2(t *testing.T) {
 	var wildcard = New("a/b/c/d")
-	if !wildcard.match("a/b/c/d") {
+	if !wildcard.Match("a/b/c/d") {
 		t.Fail()
 	}
 	wildcard = New("a/b/c/*")
-	if !wildcard.match("a/b/c/d") {
+	if !wildcard.Match("a/b/c/d") {
 		t.Fail()
 	}
-	if wildcard.match("a/b/c/d/e") {
+	if wildcard.Match("a/b/c/d/e") {
 		t.Fail()
 	}
-	if wildcard.match("a/b/c/") {
+	if wildcard.Match("a/b/c/") {
 		t.Fail()
 	}
-	if wildcard.match("a/b") {
+	if wildcard.Match("a/b") {
 		t.Fail()
 	}
 	wildcard = New("a/b/c/>")
-	if wildcard.match("a/b") {
+	if wildcard.Match("a/b") {
 		t.Fail()
 	}
-	if wildcard.match("a/b/c") {
+	if wildcard.Match("a/b/c") {
 		t.Fail()
 	}
-	if !wildcard.match("a/b/c/d") {
+	if !wildcard.Match("a/b/c/d") {
 		t.Fail()
 	}
-	if !wildcard.match("a/b/c/d/cs") {
+	if !wildcard.Match("a/b/c/d/cs") {
 		t.Fail()
 	}
 
