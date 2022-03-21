@@ -33,6 +33,14 @@ func (param *Int64Param) BindCmd() *Int64Param {
 	return param.Bind(FlagSets.CommandFlag)
 }
 
+func (param *Int64Param) Share(name, usage string) *Int64Param {
+	newParam := Int64Param{
+		value: param.value,
+		name: name,
+		usage: usage,
+	}
+	return &newParam
+}
 func New(name, usage string) *Int64Param {
 	var defaultValue int64
 	defaultValue = 0

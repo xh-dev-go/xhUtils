@@ -32,6 +32,15 @@ func (param *BoolParam) BindCmd() *BoolParam {
 	return param.Bind(FlagSets.CommandFlag)
 }
 
+func (param *BoolParam) Share(name, usage string) *BoolParam {
+	newParam := BoolParam{
+		value: param.value,
+		name: name,
+		usage: usage,
+	}
+	return &newParam
+}
+
 func New(name, usage string) *BoolParam {
 	defaultValue := false
 	v := BoolParam{value: &defaultValue}

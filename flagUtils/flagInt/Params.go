@@ -32,6 +32,15 @@ func (param *IntParam) BindCmd() *IntParam {
 	return param.Bind(FlagSets.CommandFlag)
 }
 
+func (param *IntParam) Share(name, usage string) *IntParam {
+	newParam := IntParam{
+		value: param.value,
+		name: name,
+		usage: usage,
+	}
+	return &newParam
+}
+
 func New(name, usage string) *IntParam {
 	defaultValue := 0
 	v := IntParam{value: &defaultValue}

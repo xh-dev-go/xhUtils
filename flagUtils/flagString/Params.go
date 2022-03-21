@@ -36,6 +36,15 @@ func (param *StringParam) Bind(flag *flag.FlagSet) *StringParam {
 	return param
 }
 
+func (param *StringParam) Share(name, usage string) *StringParam {
+	newParam := StringParam{
+		value: param.value,
+		name: name,
+		usage: usage,
+	}
+	return &newParam
+}
+
 func New(name, usage string) *StringParam {
 	defaultValue := ""
 	v := StringParam{value: &defaultValue}
