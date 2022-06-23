@@ -83,10 +83,10 @@ func StringToBufIoReader(str string) *bufio.Reader {
 func FormatNum(index int, format string) string {
 	return fmt.Sprintf(format, index)
 }
-func StringConcat(index string, separator string, msg string, withNewLine bool) string {
+func StringConcat(first string, separator string, second string, withNewLine bool) string {
 	if withNewLine {
-		return fmt.Sprintf("%s%s%s%s", index, separator, msg, "\n")
+		return fmt.Sprintf("%s%s%s%s", first, separator, second, "\n")
 	} else {
-		return fmt.Sprintf("%s%s%s", index, separator, msg)
+		return fmt.Sprintf("%s%s%s", first, separator, second)
 	}
 }
