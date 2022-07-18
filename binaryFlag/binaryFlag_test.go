@@ -83,11 +83,12 @@ func TestSimpleFlag(t *testing.T) {
 	flag.SetBit(29)
 	flag.SetBit(31)
 
-	if flag.DefaultValueStr() != "X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X" {
+	if flag.DefaultValueStr() != "_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_" {
 		t.Error("Test singular set")
 	}
 
 	flag = New()
+	flag.SetBit(0)
 	flag.SetBit(2)
 	flag.SetBit(4)
 	flag.SetBit(6)
@@ -104,11 +105,11 @@ func TestSimpleFlag(t *testing.T) {
 	flag.SetBit(28)
 	flag.SetBit(30)
 
-	if flag.DefaultValueStr() != "_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_" {
+	if flag.DefaultValueStr() != "X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X" {
 		t.Error("Test odd set")
 	}
 
-	if flag.Toggle().DefaultValueStr() != "X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X" {
+	if flag.Toggle().DefaultValueStr() != "_X_X_X_X_X_X_X_X_X_X_X_X_X_X_X_" {
 		t.Error("Test singular set")
 	}
 }

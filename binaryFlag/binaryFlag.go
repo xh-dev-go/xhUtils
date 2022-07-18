@@ -3,6 +3,7 @@ package binaryFlag
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 type BinaryFlag struct {
@@ -67,7 +68,7 @@ func (flag *BinaryFlag) AnyMatch(setFlag BinaryFlag) bool {
 }
 
 func (flag *BinaryFlag) Toggle() *BinaryFlag {
-	flag.value ^= flag.value
+	flag.value ^= math.MaxUint >> 1
 	return flag
 }
 
