@@ -91,7 +91,7 @@ type ValuePair[T any] struct {
 	values map[int]T
 }
 
-func (pair ValuePair[T]) extractAny(flag BinaryFlag) (T, error) {
+func (pair ValuePair[T]) ExtractAny(flag BinaryFlag) (T, error) {
 	var v T
 	for i, d := range pair.values {
 		if flag.IsSet(i) {
@@ -101,7 +101,7 @@ func (pair ValuePair[T]) extractAny(flag BinaryFlag) (T, error) {
 	return v, errors.New("not found")
 }
 
-func (pair ValuePair[T]) extractAll(flag BinaryFlag) []T {
+func (pair ValuePair[T]) ExtractAll(flag BinaryFlag) []T {
 	var arr []T
 	for i, d := range pair.values {
 		if flag.IsSet(i) {
