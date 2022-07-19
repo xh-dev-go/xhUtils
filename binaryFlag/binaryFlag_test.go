@@ -113,3 +113,41 @@ func TestSimpleFlag(t *testing.T) {
 		t.Error("Test singular set")
 	}
 }
+func TestValuePair(t *testing.T) {
+	xx := ValuePair[string]{
+		values: map[int]string{
+			1: "sss",
+			2: "xxx",
+		},
+	}
+	extractAny, err := xx.extractAny(*New().SetBit(2).SetBit(1))
+	if err != nil {
+		t.Error("should not be error")
+	}
+	if extractAny != "sss" {
+		t.Error("fail for extractAny")
+	}
+
+	_, err = xx.extractAny(*New().SetBit(3).SetBit(4))
+	if err == nil {
+		t.Error("should not be error")
+	}
+
+}
+
+func TestValuePairExtractAll(t *testing.T) {
+	xx := ValuePair[string]{
+		values: map[int]string{
+			1: "sss",
+			2: "xxx",
+		},
+	}
+	extractAny := xx.extractAll(*New().SetBit(2).SetBit(3))
+	if len(extractAny) != 1 {
+		t.Error("size not match")
+	}
+	if extractAny[0] != "xxx" {
+		t.Error("result not match")
+	}
+
+}

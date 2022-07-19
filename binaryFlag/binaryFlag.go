@@ -87,6 +87,30 @@ func (flag *BinaryFlag) ValueStr(on, off string) string {
 	return s
 }
 
+type ValuePair[T any] struct {
+	values map[int]T
+}
+
+func (pair ValuePair[T]) extractAny(flag BinaryFlag) (T, error) {
+	var v T
+	for i, d := range pair.values {
+		if flag.IsSet(i) {
+			return d, nil
+		}
+	}
+	return v, errors.New("not found")
+}
+
+func (pair ValuePair[T]) extractAll(flag BinaryFlag) []T {
+	var arr []T
+	for i, d := range pair.values {
+		if flag.IsSet(i) {
+			arr = append(arr, d)
+		}
+	}
+	return arr
+}
+
 func New() *BinaryFlag {
 	return &BinaryFlag{}
 }
