@@ -88,12 +88,12 @@ func (flag *BinaryFlag) ValueStr(on, off string) string {
 }
 
 type ValuePair[T any] struct {
-	values map[int]T
+	Values map[int]T
 }
 
 func (pair ValuePair[T]) ExtractAny(flag BinaryFlag) (T, error) {
 	var v T
-	for i, d := range pair.values {
+	for i, d := range pair.Values {
 		if flag.IsSet(i) {
 			return d, nil
 		}
@@ -103,7 +103,7 @@ func (pair ValuePair[T]) ExtractAny(flag BinaryFlag) (T, error) {
 
 func (pair ValuePair[T]) ExtractAll(flag BinaryFlag) []T {
 	var arr []T
-	for i, d := range pair.values {
+	for i, d := range pair.Values {
 		if flag.IsSet(i) {
 			arr = append(arr, d)
 		}

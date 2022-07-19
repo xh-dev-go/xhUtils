@@ -115,7 +115,7 @@ func TestSimpleFlag(t *testing.T) {
 }
 func TestValuePair(t *testing.T) {
 	xx := ValuePair[string]{
-		values: map[int]string{
+		Values: map[int]string{
 			1: "sss",
 			2: "xxx",
 		},
@@ -137,7 +137,7 @@ func TestValuePair(t *testing.T) {
 
 func TestValuePairExtractAll(t *testing.T) {
 	xx := ValuePair[string]{
-		values: map[int]string{
+		Values: map[int]string{
 			1: "sss",
 			2: "xxx",
 		},
