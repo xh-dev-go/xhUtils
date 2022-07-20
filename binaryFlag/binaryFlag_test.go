@@ -150,4 +150,9 @@ func TestValuePairExtractAll(t *testing.T) {
 		t.Error("result not match")
 	}
 
+	extractAny = xx.ExtractAll(*New().SetBit(4).SetBit(3))
+	if len(extractAny) != 0 {
+		t.Error("size not match")
+	}
+
 }

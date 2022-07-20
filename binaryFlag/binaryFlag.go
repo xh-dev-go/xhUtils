@@ -102,7 +102,7 @@ func (pair ValuePair[T]) ExtractAny(flag BinaryFlag) (T, error) {
 }
 
 func (pair ValuePair[T]) ExtractAll(flag BinaryFlag) []T {
-	var arr []T
+	var arr = make([]T, 0)
 	for i, d := range pair.Values {
 		if flag.IsSet(i) {
 			arr = append(arr, d)
